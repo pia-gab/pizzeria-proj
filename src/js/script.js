@@ -75,7 +75,11 @@
     cart: {
       defaultDeliveryFee: 20,
     },
-    // CODE ADDED END
+    db: {
+      url: '//localhost:3131',
+      product: 'product',
+      order: 'order',
+    },
   };
   
   const templates = {
@@ -279,6 +283,9 @@
       //console.log(thisCart.dom.wrapper);
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
       thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
+      thisCart.dom.form = thisCart.dom.wrapper.querySelector(select.cart.form);
+      thisCart.dom.phone = thisCart.dom.wrapper.querySelector(select.cart.phone);
+      thisCart.dom.address = thisCart.dom.wrapper.querySelector(select.cart.address);
       //console.log('thisCart.dom.productList', thisCart.dom.productList);
       //console.log(thisCart.dom.wrapper);
 
@@ -298,6 +305,10 @@
       });
       thisCart.dom.productList.addEventListener('remove', function(){
         thisCart.remove(event.detail.cartProduct);
+      });
+      thisCart.dom.form.addEventListener('submit', function(event){
+        event.preventDefault();
+        thisCart.sendOrder();
       });
     }
     add(menuProduct){
@@ -339,6 +350,38 @@
       cartProduct.dom.wrapper.remove();
       thisCart.update();
     }
+    sendOrder(){
+      const thisCart = this;
+      const url = settings.db.url + '/' + settings.db.order;
+
+      const payload = {
+        phone: thisCart.dom.phone.value,
+        address: thisCart.dom.address.value,
+        totalPrice: thisCart.totalPrice,
+        subtotalPrice: thisCart.subtotalPrice,
+        totalNumber: thisCart.totalNumber,
+        deliveryFee: thisCart.deliveryFee,
+        products: []
+      };
+      for (let item of thisCart.products) {
+        payload.products.push(item.getData());
+      }
+
+      const options = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      };
+
+      fetch(url, options)
+        .then(function(response){
+          return response.json();
+        }).then(function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
+        })
+    }
   }
   class CartProduct {
     constructor(menuProduct, element) {
@@ -352,8 +395,6 @@
       
       thisCartProduct.getElements(element);
       thisCartProduct.initAmountWidget();
-      //console.log('thisCartProduct',thisCartProduct);
-      //console.log('menuProduct',menuProduct);
       thisCartProduct.initActions();
     }
     getElements(element) {
@@ -396,6 +437,19 @@
         thisCartProduct.remove();
       });
     }
+    getData() {
+      const thisCartProduct = this;
+      const payloadData = {};
+
+      payloadData.name = thisCartProduct.id;
+      payloadData.amount = thisCartProduct.amount;
+      payloadData.price = thisCartProduct.price;
+      payloadData.priceSingle = thisCartProduct.priceSingle;
+      payloadData.params = thisCartProduct.params;
+
+      console.log(payloadData);
+      return payloadData;
+    }
   }
   const app = {
     initMenu: function(){
@@ -404,13 +458,24 @@
       console.log('testProduct', testProduct);
  
       for (let productData in thisApp.data.products) {
-        new Product(productData, thisApp.data.products[productData]);
+        new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
       }
     },
     initData: function () {
       const thisApp = this;
-      thisApp.data = dataSource;
-      //console.log('data s', dataSource);
+      thisApp.data = {};
+      const url = settings.db.url + '/' + settings.db.product;
+
+      fetch(url)
+        .then(function(rawResponse){
+          return rawResponse.json();
+        })
+        .then(function(parsedResponse){
+          console.log('parsedResponse', parsedResponse);
+          thisApp.data.products = parsedResponse;
+          thisApp.initMenu();
+        });
+      console.log('thisApp.data', JSON.stringify(thisApp.data));
     },
     init: function () {
       const thisApp = this;
@@ -421,7 +486,6 @@
       //console.log('templates:', templates);
  
       thisApp.initData();
-      thisApp.initMenu();
     },
     initCart: function () {
       const thisApp = this;
