@@ -3,10 +3,11 @@ import {
   select,
 } from '../settings.js';
 
-import utils from '../utils.js';
+import {utils} from '../utils.js';
 
-import AmountWidget from './AmountWidget.js';
-class Product {
+import {AmountWidget} from './AmountWidget.js';
+
+export class Product {
   constructor(id, data){
     const thisProduct = this;
     thisProduct.id = id;
@@ -135,5 +136,3 @@ class Product {
     thisProduct.element.dispatchEvent(event);
   }
 }
-
-export default Product;

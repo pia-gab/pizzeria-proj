@@ -4,10 +4,10 @@ import {
   select,
 } from '../settings.js';
 
-import CartProduct from './CartProduct.js';
+import {CartProduct} from './CartProduct.js';
 
-import utils from '../utils.js';
-class Cart {
+import {utils} from '../utils.js';
+export class Cart {
   constructor(element){
     const thisCart = this;
     //console.log('this cart', thisCart);
@@ -126,5 +126,3 @@ class Cart {
       });
   }
 }
-
-export default Cart;
