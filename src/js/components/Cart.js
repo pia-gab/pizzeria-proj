@@ -5,8 +5,8 @@ import {
 } from '../settings.js';
 
 import {CartProduct} from './CartProduct.js';
-
 import {utils} from '../utils.js';
+
 export class Cart {
   constructor(element){
     const thisCart = this;
