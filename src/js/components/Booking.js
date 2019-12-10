@@ -3,7 +3,7 @@ import {DatePicker} from './DatePicker.js';
 import {HourPicker} from './HourPicker.js';
 import {select, templates} from '../settings.js';
 
-export class Booking {
+class Booking {
   constructor (element) {
     const thisBooking = this;
     thisBooking.render(element);
@@ -32,4 +32,4 @@ export class Booking {
     thisBooking.datePicker = new DatePicker(thisBooking.dom.datePicker);
     thisBooking.hourPicker = new HourPicker(thisBooking.dom.hourPicker);
   }
-}
+} export default Booking;
