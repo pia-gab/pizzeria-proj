@@ -232,7 +232,7 @@
       "repeat": "daily",
       "duration": 2,
       "ppl": 3,
-      "starters": ["bread", "lemonWater"]
+      "starters": ["bread",  "lemonWater"]
     },
     {
       "id": 4,
