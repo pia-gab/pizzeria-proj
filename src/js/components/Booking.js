@@ -72,7 +72,7 @@ class Booking {
 
     thisBooking.booked = {};
 
-    console.log('bookings', thisBooking.booked);
+    console.log('booked', thisBooking.booked);
 
     for (let item of bookings){
       thisBooking.makeBooked(item.date, item.hour, item.duration, item.table);

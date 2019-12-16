@@ -21,6 +21,7 @@
           <h2 class="logo__subtitle">the best homemade Italian food</h2>
         </div>
         <div class="main-nav">
+            <a href="#main-page">Main</a>
           <a href="#order">Order</a>
           <a href="#booking">Booking</a>
         </div>
@@ -62,6 +63,9 @@
   </header>
 
   <div id="pages">
+    <section id="main-page">
+      <div class="main-wrapper container"></div>
+    </section>
     <section id="order">
       <div id="product-list" class="product-list container"></div>
     </section>
@@ -241,6 +245,77 @@
         </div>
 
     </article> <!-- .product -->
+  </script>
+<!--------------------------------main page-->
+  <script id="template-main-page" type="text/x-handlebars-template">
+    <div class="main-page">
+      <div class="row">
+        <div class="link order-link">
+          <a href="#order">ORDER ONLINE</a>
+          <p>dobre papu pod same drzwi</p>
+        </div>
+        <div class="link booking-link">
+          <a href="#booking">BOOK A TABLE</a>
+          <p>ta sama szama ale w lokalu</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="open-hours">
+          <p>opening hours:</p>
+          <p>tue-sun, 13am - 13pm</p>
+        </div>
+      </div>
+      <div class="row">
+          <div class="carusel">
+            <div class="carusel-image">
+              <img src="images/opinions.jpg">
+            </div>
+            <div class="carusel-slaider"></div>
+          </div>
+      </div>
+      <div class="row">
+          <div class="gallery-wrapper"></div>
+      </div>
+      <div class="row">
+          <div class="instagram">
+            <a href="#">Wincyj na insta</a>
+          </div>
+      </div>
+    </div>
+  </script>
+
+  <script id="template-image-element" type="text/x-handlebars-template">
+    <div class="image-wrapper">
+      {{#each image}}
+      <div class="gallery-image">
+        <img src="{{source}}" alt="{{alt}}" title="{{title}}">
+        <i class="fas fa-share-alt"></i>
+        <i class="fas fa-heart"></i>
+      </div>
+      {{/each}}
+    </div>
+  </script>
+
+  <script id="template-opinion-element" type="text/x-handlebars-template">
+    <div class="carusel-text">
+      {{#each opinion}}
+      <div class="opinion {{class}} {{active}}">
+        <h3>{{title}}</h3>
+        <p>{{text}}</p>
+        <p>{{author}}</p>
+      </div>
+      {{/each}}
+    </div>
+  </script>
+
+  <script id="template-opinion-option" type="text/x-handlebars-template">
+      <div class="carusel-option">
+        <ul>
+          {{#each options}}
+          <li data-opinion="{{data-opinion}}" data-slajder="{{data-slajder}}" class="{{class}}"></li>
+          {{/each}}
+        </ul>
+      </div>
   </script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
