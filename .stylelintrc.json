@@ -7,7 +7,7 @@
     "color-no-invalid-hex": true,
     "comment-empty-line-before": null,
     "declaration-colon-space-after": "always",
-    "declaration-block-semicolon-newline-after": "always",
+    "declaration-block-semicolon-newline-after": null,
     "declaration-block-trailing-semicolon": "always",
     "indentation": 2,
     "max-empty-lines": 2,

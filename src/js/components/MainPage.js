@@ -6,8 +6,8 @@ export class MainPage {
     const thisPage = this;
 
     thisPage.renderPage();
-    //thisPage.getElements();
-    //thisPage.getData();
+    thisPage.getElements();
+    thisPage.getData();
   }
   renderPage() {
     const thisPage = this;
@@ -23,6 +23,8 @@ export class MainPage {
 
     thisPage.imageList = document.querySelector(select.containerOf.image);
     thisPage.opinionsList = document.querySelector(select.containerOf.opinions);
+    //console.log('thisPage.imageList', thisPage.imageList);
+    //console.log('thisPage.opinionsList', thisPage.opinionsList);
   }
   getData() {
     const thisPage = this;
@@ -54,6 +56,7 @@ export class MainPage {
     const mappedImages = thisPage.dataImages.map(function(imageObject) {
       return imageObject.image;
     });
+    console.log(mappedImages);
     const arrayConvertedToObject = Object.assign({}, mappedImages);
     const generatedHTML = templates.image({image: arrayConvertedToObject});
     thisPage.element = utils.createDOMFromHTML(generatedHTML);
